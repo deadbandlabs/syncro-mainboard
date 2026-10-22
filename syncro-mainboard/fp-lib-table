@@ -1,0 +1,5 @@
+(fp_lib_table
+	(version 7)
+	(lib (name "dbl-ic") (type "KiCad") (uri "${KIPRJMOD}/../syncro-pcb-lib/dbl-ic.pretty") (options "") (descr "ICs and parts"))
+	(lib (name "dbl-mech") (type "KiCad") (uri "${KIPRJMOD}/../syncro-pcb-lib/dbl-mech.pretty") (options "") (descr "Connectors, headers, mechanical"))
+)

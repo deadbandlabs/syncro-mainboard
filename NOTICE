@@ -1,0 +1,22 @@
+Deadband Labs Syncro
+
+Copyright (c) 2026 Deadband Inc.
+
+Licence: CERN-OHL-W-2.0, see LICENSE.
+Source Location: https://github.com/deadbandlabs/syncro-mainboard
+
+Third-party material
+
+syncro-pcb-lib/ is generated from the project's parts library (see
+syncro-pcb-lib/GENERATED.md). Most of it is this project's own work, drawn from
+vendor datasheet land patterns. These parts derive from the KiCad libraries and
+stay under their licence, CC-BY-SA-4.0 WITH KiCad-libraries-exception:
+
+- Symbol: ECMF02-2AMX6
+- Footprint: JST_SH_SM04B-SRSS-TB
+- Footprint: MikroBUS_Socket_2x1x08
+- Footprint: USB_C_Receptacle_SHOUHAN_TYPE-C-16PIN-2MD-073
+- Footprint: WSON-6-1EP_2x2mm_P0.65mm_EP1x1.6mm_ThermalVias_0.3mm
+
+The libraries exception means a design that uses these parts is not required to
+be released under CC-BY-SA.

@@ -1,0 +1,10 @@
+# KiCad local state
+*.lck
+*.kicad_prl
+*.bak
+*-backups/
+
+# Not redistributed: vendor datasheets, private parts library, 3D model source
+/datasheets/
+/dbl-pcb-lib
+/fab/

@@ -1,0 +1,5 @@
+(sym_lib_table
+	(version 7)
+	(lib (name "dbl-ic") (type "KiCad") (uri "${KIPRJMOD}/../syncro-pcb-lib/dbl-ic.kicad_sym") (options "") (descr "ICs and parts"))
+	(lib (name "dbl-mech") (type "KiCad") (uri "${KIPRJMOD}/../syncro-pcb-lib/dbl-mech.kicad_sym") (options "") (descr "Connectors, headers, mechanical"))
+)

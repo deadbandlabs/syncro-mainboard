@@ -1,0 +1,139 @@
+(version 1)
+
+# ---------------------------------------------------------------
+# JLCPCB 4-layer, 1oz outer / 0.5oz inner, standard process.
+# Values are JLC published minimums with margin, not absolute floor.
+# Source: https://jlcpcb.com/capabilities/pcb-capabilities
+# ---------------------------------------------------------------
+
+# --- Global floors ---
+# All unconditional constraints live in ONE rule. KiCad treats "no condition"
+# as a condition, so multiple bare rules collide and only the first wins.
+(rule "jlc_global"
+	# Copper floors (multilayer 1oz: 0.09/0.09 absolute)
+	(constraint track_width (min 0.127mm))
+	(constraint clearance (min 0.127mm))
+	# Vias: 0.2mm hole (paid tier), diameter >= hole + 0.1mm (+0.15mm preferred)
+	(constraint via_diameter (min 0.3mm) (opt 0.35mm))
+	(constraint hole_size (min 0.2mm) (opt 0.2mm))
+	(constraint hole_to_hole (min 0.5mm))
+	(constraint hole_clearance (min 0.2mm))
+	# Board edge
+	(constraint edge_clearance (min 0.3mm))
+	(severity error))
+
+# NO courtyard_clearance rule here on purpose.
+# The courtyard already contains the assembly margin (IPC-7351), so requiring
+# an extra gap between courtyards double-counts it and floods DRC with noise.
+# Zero-overlap is enforced by the built-in check:
+#   Board Setup > Violation Severity > "Courtyards overlap" = Error
+# Audit tightest pairs with: tools/courtyard_audit.py
+
+# BGA fanout escape allowed tighter, still above JLC floor
+(rule "jlc_bga_fanout"
+	(condition "A.insideCourtyard('U*')")
+	(constraint track_width (min 0.09mm))
+	(constraint clearance (min 0.09mm)))
+
+# --- Vias: blind/buried NOT supported by JLC ---
+# TARGET: stay on the FREE drill tier. 0.2mm holes cost +$30 on the 200-run.
+# Free tier reference = 0.3mm hole / 0.6mm diameter, which is what 245 of the
+# vias on this board already use. Anything smaller is a paid-tier via.
+#
+# One rule, not two. A separate rule with the same "A.Type == 'Via'" condition
+# would collide and silently shadow this one.
+#
+# CONFIRM 0.3/0.6 against jlcpcb.com/capabilities/pcb-capabilities before
+# ordering -- these are the numbers this board already uses, not a quote.
+#
+# Flip to (severity warning) if you decide to keep paying for 0.2mm holes.
+# Inventory vias with: python3 tools/hole_clearance_audit.py <board>
+(rule "jlc_via_free_tier"
+	(condition "A.Type == 'Via'")
+	(constraint hole_size (min 0.3mm) (opt 0.3mm))
+	(constraint via_diameter (min 0.6mm) (opt 0.6mm))
+	(constraint annular_width (min 0.05mm) (opt 0.075mm))
+	(severity error))
+
+# Component PTH pads keep the stricter multilayer annular recommendation
+(rule "jlc_pth_annular"
+	(condition "A.Type == 'Pad' && A.Pad_Type == 'Through-hole'")
+	(constraint annular_width (min 0.15mm))
+	(severity warning))
+
+# --- Vendor footprint exception: J1 USB-C ---
+# SHOUHAN TYPE-C-16PIN-2MD-073 places its NPTH alignment pegs 0.165mm from
+# its own A1/A12/B1/B12 GND pads. That is the connector as the vendor drew it,
+# not a layout mistake, and it cannot be fixed without redrawing the part.
+#
+# BOTH sides must be inside J1. A via or track of ours drifting near J1 still
+# errors at the 0.2mm global floor -- this cannot mask a real violation.
+#
+# Verify with: python3 tools/hole_clearance_audit.py syncro-mainboard.kicad_pcb 0.2
+# Expected after this rule: 0 hole_clearance errors.
+(rule "j1_usbc_vendor_internal_holes"
+	(condition "A.memberOfFootprint('J1') && B.memberOfFootprint('J1')")
+	(constraint hole_clearance (min 0.15mm))
+	(severity warning))
+
+# --- Silkscreen (JLC: min line 0.15mm, pad-to-silk 0.15mm) ---
+(rule "jlc_silk_clearance"
+	(layer "?.SilkS")
+	(constraint silk_clearance (min 0.15mm))
+	(severity warning))
+
+# Min silk text height/thickness: NOT a DRU constraint in this KiCad build.
+# Enforce via Board Setup > Text & Graphics defaults (1.0mm / 0.15mm).
+
+# --- Solder mask sliver between pads ---
+# Handled by Board Setup > solder mask min web width (0.1mm), not a DRU rule.
+# physical_hole_clearance is hole-to-hole and misfires here.
+
+# ---------------------------------------------------------------
+# Impedance-critical nets
+# WIDTHS ARE PLACEHOLDERS. Recompute in JLC impedance calculator
+# for the exact stackup ordered, then update here AND in netclasses.
+# ---------------------------------------------------------------
+
+# USB2 HS = 90 ohm differential, JLC04161H-3313
+# JLC calculator: w=0.161mm, s=0.2499mm @ 90ohm. Keep in sync with USB_HS netclass.
+#
+# gap max 1.0mm / uncoupled max 15mm ARE ESCAPE MASKS, NOT DESIGN TARGETS.
+# Verified 2026-09: every pair couples to ~0.25mm gap mid-route; these ceilings
+# only absorb pad-pitch fanouts (worst on board: 0.839mm gap at SOM escape,
+# 11.8mm summed uncoupled). KiCad cannot exempt by courtyard, so the rule
+# encodes "no deviation worse than an escape". At USB HS (~0.5ns edges) an
+# escape is a lumped bump with negligible eye impact.
+# gap min 0.20 and opt 0.25 define the real coupled-run geometry. Intra-pair
+# skew has its own checks and matters more than gap here.
+# If a NEW warning appears under this rule, something moved -- re-review, don't
+# just raise numbers again.
+(rule "usb_hs_diff"
+	(condition "A.NetClass == 'USB_HS'")
+	(constraint diff_pair_gap (min 0.20mm) (opt 0.25mm) (max 1.0mm))
+	(constraint track_width (min 0.145mm) (opt 0.161mm))
+	(constraint diff_pair_uncoupled (max 15mm))
+	(severity warning))
+
+# SDMMC = 50 ohm single-ended, JLC04161H-3313 (JLC calc: 0.1509mm @ 50ohm).
+# Keep in sync with SDMMC netclass.
+# microSD at 1.8V may run UHS-I; treat CLK/CMD/DAT0-3 as high-speed.
+(rule "sdmmc_se"
+	(condition "A.NetClass == 'SDMMC'")
+	(constraint track_width (min 0.135mm) (opt 0.151mm)))
+
+# SDMMC clock is the aggressor: give it extra room
+(rule "sdmmc_clk_isolation"
+	(condition "A.NetName == '*SDMMC1_CK*'")
+	(constraint clearance (min 0.3mm))
+	(severity warning))
+
+# Keep high-speed away from other nets.
+# 0.2mm edge = ~3.6x dielectric height pitch on JLC04161H-3313 (h=0.0994mm):
+# tighter than common 2W rule, fine for USB2 (400ps edges, short runs).
+(rule "high_speed_isolation"
+	# pad-to-pad excluded: connector pad pitch is fixed by the footprint,
+	# this value can never be met there; fab floor (jlc_global) still applies.
+	(condition "(A.NetClass == 'USB_HS' || A.NetClass == 'SDMMC') && !(A.Type == 'Pad' && B.Type == 'Pad')")
+	(constraint clearance (min 0.20mm))
+	(severity warning))
