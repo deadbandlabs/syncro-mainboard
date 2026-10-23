@@ -5,9 +5,9 @@
 	(uuid "0c478718-1075-4607-a220-58edbc68f041")
 	(paper "USLetter")
 	(title_block
-		(title "Debug")
-		(date "2026-08-25")
-		(rev "1")
+		(title "Syncro FFB Interceptor")
+		(date "2026-10-23")
+		(rev "2")
 		(company "Deadband Inc.")
 	)
 	(lib_symbols

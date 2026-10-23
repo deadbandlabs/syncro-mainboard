@@ -5,9 +5,9 @@
 	(uuid "b5419a3c-8a8b-4cf6-a509-e50c676abb85")
 	(paper "USLetter")
 	(title_block
-		(title "User GPIO")
-		(date "2026-08-25")
-		(rev "1")
+		(title "Syncro FFB Interceptor")
+		(date "2026-10-23")
+		(rev "2")
 		(company "Deadband Inc.")
 	)
 	(lib_symbols

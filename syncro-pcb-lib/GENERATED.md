@@ -2,8 +2,8 @@
 
 # syncro-pcb-lib
 
-- source library revision: 77528f1
-- contents: 13 footprints, 9 symbols (dbl-ic 7, dbl-mech 2)
+- source library revision: 72c6b59
+- contents: 14 footprints, 9 symbols (dbl-ic 7, dbl-mech 2)
 - symbols: dbl-ic.kicad_sym, dbl-mech.kicad_sym
 - 3D models are not redistributed: footprints referencing them fall back
   to no model, which KiCad reports as a missing-model warning.

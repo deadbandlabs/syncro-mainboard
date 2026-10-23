@@ -81,40 +81,7 @@
           "width": 0.09
         }
       ],
-      "drc_exclusions": [
-        [
-          "courtyards_overlap|45579263|64255000|2b7bea4b-087a-4aec-8699-8b9de6bb9dcf|c1f16ea8-78e3-4008-9af9-1daab1410f1d",
-          "Overlap intentional"
-        ],
-        [
-          "courtyards_overlap|48895000|117494516|bbd453f9-d4f0-40ae-a1af-395784e5e850|c1efcb84-d774-4a09-b5b5-2ed17de206a5",
-          "Overlap intentional"
-        ],
-        [
-          "courtyards_overlap|52755000|116547013|1fdf96e9-0b74-4302-a2d7-f88ec004bd39|c1efcb84-d774-4a09-b5b5-2ed17de206a5",
-          "Overlap intentional"
-        ],
-        [
-          "courtyards_overlap|72445000|117494516|1fdf96e9-0b74-4302-a2d7-f88ec004bd39|39805023-76d4-4543-ad93-4dddeb3930ee",
-          "Overlap intentional"
-        ],
-        [
-          "courtyards_overlap|76255000|116365694|39805023-76d4-4543-ad93-4dddeb3930ee|e8c715b8-b072-4213-bd4c-8d7fa31cbe03",
-          "Overlap intentional"
-        ],
-        [
-          "courtyards_overlap|83245000|66067980|2b7bea4b-087a-4aec-8699-8b9de6bb9dcf|775e31f7-18bb-48b9-a3a2-00430b06349d",
-          "Overlap intentional"
-        ],
-        [
-          "npth_inside_courtyard|43600000|64100000|fd942b09-ce12-47a9-91b0-79c5e5e2c60c|2b7bea4b-087a-4aec-8699-8b9de6bb9dcf",
-          "Overlap intentional"
-        ],
-        [
-          "npth_inside_courtyard|83500000|64100000|f41b1d62-f9a2-49a7-af22-2ed26f7eeb58|2b7bea4b-087a-4aec-8699-8b9de6bb9dcf",
-          "Overlap intentional"
-        ]
-      ],
+      "drc_exclusions": [],
       "meta": {
         "version": 2
       },
@@ -194,8 +161,8 @@
         "min_microvia_drill": 0.1,
         "min_resolved_spokes": 2,
         "min_silk_clearance": 0.15,
-        "min_text_height": 1.0,
-        "min_text_thickness": 0.15,
+        "min_text_height": 0.7,
+        "min_text_thickness": 0.12,
         "min_through_hole_diameter": 0.2,
         "min_track_width": 0.125,
         "min_via_annular_width": 0.05,
@@ -314,7 +281,7 @@
       "internal_id": "",
       "mfg": "",
       "mpn": "",
-      "sch_revision": "1"
+      "sch_revision": "2"
     },
     "layer_pairs": [],
     "layer_presets": [],

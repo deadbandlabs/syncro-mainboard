@@ -47,8 +47,8 @@ Part numbers as assembled are in the LCSC fields on the schematic symbols.
 
 ### Qwiic (J9)
 
-JST SH 1.0 mm, 4 pin, horizontal: `GND`, `3V3`, `SDA` (`PH7`) and `SCL` (`PH3`),
-both on I2C3 and shared with the mikroBUS socket, with 10 kOhm pull-ups fitted.
+JST SH 1.0 mm, 4 pin, horizontal: `GND`, `3V3`, `SDA` (`PF3`) and `SCL` (`PH13`),
+both on I2C5 and shared with the mikroBUS socket, with 10 kOhm pull-ups fitted.
 Qwiic modules usually also provide pull-ups, so a long chain may over-pull the bus.
 Prefer a module without pull-ups or drop bus speed to 100 kHz.
 
@@ -71,8 +71,8 @@ IO signals route to SOM GPIO, chosen for the roles below:
 | 10 | `INT` | `INT` | 91 | PF11 | ADC1/2_INP8 |
 | 11 | `RX` | `CAN_RX` | 96 | PB5 | FDCAN2, UART5_RX, TIM3_CH2 |
 | 12 | `TX` | `CAN_TX` | 95 | PB13 | FDCAN2, UART5_TX, LPTIM2_OUT |
-| 13 | `SCL` | `I2C_SCL` | 93 | PH3 | I2C3 |
-| 14 | `SDA` | `I2C_SDA` | 94 | PH7 | I2C3 |
+| 13 | `SCL` | `I2C_SCL` | 133 | PH13 | I2C5 |
+| 14 | `SDA` | `I2C_SDA` | 132 | PF3 | I2C5 |
 | 15 | `5V` | `SYS_5V` | - | - | board 5 V rail |
 | 16 | `GND` | `GND` | - | - | |
 

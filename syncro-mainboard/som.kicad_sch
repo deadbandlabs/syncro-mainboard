@@ -5,9 +5,9 @@
 	(uuid "cee6cf06-0359-4f01-bd75-4e0d3837d408")
 	(paper "USLetter")
 	(title_block
-		(title "STM32MP13 SOM")
-		(date "2026-08-25")
-		(rev "1")
+		(title "Syncro FFB Interceptor")
+		(date "2026-10-23")
+		(rev "2")
 		(company "Deadband Inc.")
 	)
 	(lib_symbols
@@ -3825,6 +3825,27 @@
 			(embedded_fonts no)
 		)
 	)
+	(text_box "Revision 2 Note:\n * Moved I2C to I2C5 pins 132/133 due to I2C3 conflict with internal EEPROM"
+		(exclude_from_sim no)
+		(at 153.67 142.8132 0)
+		(size 48.26 8.3168)
+		(margins 0.9525 0.9525 0.9525 0.9525)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(italic yes)
+			)
+			(justify left top)
+		)
+		(uuid "2179216e-df83-4cc5-9794-c66207d57176")
+	)
 	(junction
 		(at 92.71 36.83)
 		(diameter 0)
@@ -4100,10 +4121,6 @@
 		(uuid "2ed10709-b1a3-4dd1-9735-e238406d7dd6")
 	)
 	(no_connect
-		(at 148.59 154.94)
-		(uuid "30b7477a-c79b-42aa-99ef-1996830e859f")
-	)
-	(no_connect
 		(at 22.86 168.91)
 		(uuid "3b762cf6-7f96-4961-9b80-f72c660a70ed")
 	)
@@ -4122,10 +4139,6 @@
 	(no_connect
 		(at 148.59 142.24)
 		(uuid "45f67ee0-3e81-415f-a32a-6915b75c3a46")
-	)
-	(no_connect
-		(at 148.59 157.48)
-		(uuid "4636ff3f-a601-42da-ba6e-a28c455f545b")
 	)
 	(no_connect
 		(at 97.79 154.94)
@@ -4222,6 +4235,10 @@
 	(no_connect
 		(at 97.79 137.16)
 		(uuid "8c0864f0-6997-422c-ac86-9630418fff61")
+	)
+	(no_connect
+		(at 234.95 49.53)
+		(uuid "8d9a692c-ed6b-4a05-8ab3-2d05bb09c548")
 	)
 	(no_connect
 		(at 83.82 135.89)
@@ -4334,6 +4351,10 @@
 	(no_connect
 		(at 97.79 147.32)
 		(uuid "ebfefa50-c8ab-4904-82c9-af4c01d87bb9")
+	)
+	(no_connect
+		(at 234.95 46.99)
+		(uuid "ece8c545-da42-4a2d-9cbc-1ae719764ba9")
 	)
 	(no_connect
 		(at 22.86 138.43)
@@ -4723,6 +4744,16 @@
 	)
 	(wire
 		(pts
+			(xy 148.59 154.94) (xy 153.67 154.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "63023049-2bc8-4eb0-a5ed-49e667e0f8db")
+	)
+	(wire
+		(pts
 			(xy 175.26 44.45) (xy 180.34 44.45)
 		)
 		(stroke
@@ -4913,6 +4944,16 @@
 	)
 	(wire
 		(pts
+			(xy 148.59 157.48) (xy 153.67 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "88847bfa-9f9a-435c-89b0-73326d9e3dca")
+	)
+	(wire
+		(pts
 			(xy 234.95 62.23) (xy 240.03 62.23)
 		)
 		(stroke
@@ -4980,16 +5021,6 @@
 			(type default)
 		)
 		(uuid "972cd6cb-8028-4522-a752-2babeaeee2e2")
-	)
-	(wire
-		(pts
-			(xy 234.95 46.99) (xy 240.03 46.99)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9ab1b281-d317-42fb-91dc-cabf0ad4310a")
 	)
 	(wire
 		(pts
@@ -5150,16 +5181,6 @@
 			(type default)
 		)
 		(uuid "c32ed825-07f5-4e51-bb24-5083d54a4bf3")
-	)
-	(wire
-		(pts
-			(xy 234.95 49.53) (xy 240.03 49.53)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c42386bf-f3fa-4bbe-b8e3-381ae5ed5439")
 	)
 	(wire
 		(pts
@@ -5686,28 +5707,6 @@
 		)
 		(uuid "b1f1dd30-50a6-4f7e-aa4c-a9354413ffb5")
 	)
-	(hierarchical_label "I2C_SDA"
-		(shape input)
-		(at 240.03 49.53 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "b2bb3205-e709-40df-9dc6-349b176c9240")
-	)
-	(hierarchical_label "I2C_SCL"
-		(shape input)
-		(at 240.03 46.99 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "c37191e0-e8ca-4930-898b-e6edd71c78d8")
-	)
 	(hierarchical_label "SPI_SDI"
 		(shape input)
 		(at 240.03 36.83 0)
@@ -5752,6 +5751,17 @@
 		)
 		(uuid "d9f2f8c7-e353-4c70-a0ed-4d3dfa3f6b10")
 	)
+	(hierarchical_label "I2C_SCL"
+		(shape input)
+		(at 153.67 157.48 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "da3beee1-1a19-49cd-b7b9-663dea48a2b3")
+	)
 	(hierarchical_label "SOM_USB2_D_P"
 		(shape bidirectional)
 		(at 180.34 85.09 0)
@@ -5795,6 +5805,17 @@
 			(justify left)
 		)
 		(uuid "e7b198d2-aa6c-4735-a6c2-0d830bcdec45")
+	)
+	(hierarchical_label "I2C_SDA"
+		(shape input)
+		(at 153.67 154.94 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "ed836a57-22a8-4e6e-9a11-5236b857b880")
 	)
 	(hierarchical_label "BOOT1"
 		(shape input)
@@ -5951,6 +5972,17 @@
 		)
 		(property "Description" "MYIR MYC-YF135 STM32MP135 castellated-edge SOM; 37 mm x 39 mm; 148 pads"
 			(at 160.02 46.99 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C9900196745"
+			(at 160.02 48.26 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)

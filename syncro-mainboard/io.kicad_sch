@@ -5,9 +5,9 @@
 	(uuid "0c478718-1075-4607-a220-58edbc68f041")
 	(paper "USLetter")
 	(title_block
-		(title "System IO")
-		(date "2026-08-25")
-		(rev "1")
+		(title "Syncro FFB Interceptor")
+		(date "2026-10-23")
+		(rev "2")
 		(company "Deadband Inc.")
 	)
 	(lib_symbols
@@ -2169,60 +2169,6 @@
 			)
 			(symbol "LED_RGB_1_1"
 				(pin passive line
-					(at 5.08 5.08 180)
-					(length 2.54)
-					(name "GA"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 0 180)
-					(length 2.54)
-					(name "RA"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 -5.08 180)
-					(length 2.54)
-					(name "BA"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
 					(at -5.08 -5.08 0)
 					(length 2.54)
 					(name "BK"
@@ -2269,6 +2215,60 @@
 						)
 					)
 					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 5.08 180)
+					(length 2.54)
+					(name "GA"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "RA"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 -5.08 180)
+					(length 2.54)
+					(name "BA"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
 						(effects
 							(font
 								(size 1.27 1.27)

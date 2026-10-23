@@ -5,9 +5,9 @@
 	(uuid "b9b791c5-0301-49f9-aba6-fcbd3631c8bc")
 	(paper "USLetter")
 	(title_block
-		(title "USB Accessory Ports")
-		(date "2026-08-25")
-		(rev "1")
+		(title "Syncro FFB Interceptor")
+		(date "2026-10-23")
+		(rev "2")
 		(company "Deadband Inc.")
 	)
 	(lib_symbols
