@@ -4,45 +4,42 @@
 | :---: | :---: |
 | ![Syncro rev 1](images/photo.jpg) | ![Syncro rev 1, KiCad render](images/render-iso.png) |
 
-A USB HID force-feedback interceptor between a PC and FFB devices.
+A USB HID force-feedback interceptor between a PC and FFB devices, based on the
+MYIR MYC-YF135 SOM (STM32MP135) and fully USB bus powered.
 
-Based on the MYIR MYC-YF135 SOM (STM32MP135), fully USB bus powered, with a USB 2.0 hub,
-two-position topology mux for downstream device passthrough, and three USB-A ports.
+The board has three USB-A downstream ports, with a runtime-switched two-position topology mux:
 
-The USB mux supports two USB operating modes, switched at runtime by `USB_MODE_SEL`.
- - In Mode 1, the power-on default, the PC sees the SOM as a USB gadget and downstream ports
-sit behind the hub on the SOM host port. Downstream ports are hidden from the PC.
- - In Mode 2, USB-C feeds the hub uplink and the SOM becomes a peer device, connecting the
-downstream ports directly to the PC for management.
+- Mode 1 (default): the PC sees the SOM as a USB gadget; downstream
+  ports sit behind the hub on the SOM host port.
+- Mode 2: USB-C feeds the hub uplink and downstream ports connect to the PC
+  directly, with the SOM as a peer device, for downstream device management.
 
-This board also serves as an STM32MP13 development board, with Qwiic and mikroBUS (unpopulated)
-as GPIO expansion, SWD, UART debug header, user buttons, and an RGB status LED.
+The board also serves as an STM32MP13 development board, with Qwiic and
+mikroBUS (unpopulated) as GPIO expansion, SWD, UART debug header, user buttons
+and an RGB status LED.
 
 ## Hardware
 
-- STM32MP13, 1GHz Cortex A7 CPU, 256MB DDR3L RAM
-- Boot from on-module 256MB SPI NAND, USB DFU on SW2, or SDMMC
+- STM32MP13, 1GHz Cortex A7, 256MB DDR3L; boots from on-module 256MB SPI NAND,
+  USB DFU on SW2, or SDMMC
 - USB-C device port (fixed 5.1 kOhm Rd both CC pins, no PD or CC sensing)
-- FE1.1s 4-port hub, three downstream ports on horizontal USB-A
-- Per-port common-mode filter + ESD (ECMF02-2AMX6)
+- FE1.1s 4-port hub, three downstream ports on horizontal USB-A, each with
+  common-mode filter + ESD (ECMF02-2AMX6)
 - Input eFuse (647 mA) + reverse blocking on the 5 V rail
-- microSD slot (SDMMC1 through EMIF06)
-- Console UART on a 1x3 0.1" header, SWD on a 1.27 mm 10-pin
-- Qwiic as J9, mikroBUS/Click footprint as J8
-- Reset, DFU and case/user buttons; discrete RGB status LED on TIM1
+- microSD slot (SDMMC1), console UART on a 1x3 0.1" header, SWD on a
+  1.27 mm 10-pin
+- Qwiic (J9), mikroBUS/Click footprint (J8), reset/DFU/case-user buttons,
+  RGB status LED on TIM1
 - 4 layer, 1.6 mm, ENIG, JLC04161H-3313; single-sided SMT assembly
-
-Default assembly fits the Qwiic connector only. The console, SWD and mikroBUS headers
-are left unpopulated, as are C10 and C11.
 
 ## Opening the design
 
-Designed in KiCad 10. Open `syncro-mainboard/syncro-mainboard.kicad_pro` from a clone
-of this repository. The footprint and symbol tables use paths relative to the project
-(`${KIPRJMOD}/../syncro-pcb-lib/`), so no library setup is needed.
-
-Vendor datasheets, vendor 3D models, fabrication outputs and internal DFT tools are not included.
-This will produce missing-3D-model warnings, which do not affect the schematic, layout, DRC or plots.
+Designed in KiCad 10. Open `syncro-mainboard/syncro-mainboard.kicad_pro` from a
+clone of this repository. Libraries use paths relative to the project
+(`${KIPRJMOD}/../syncro-pcb-lib/`), so no library setup is needed. Vendor
+datasheets, vendor 3D models, fabrication outputs and internal DFT tools are not
+included. _As a result, missing-3D-model warnings are expected._ This does not affect
+the schematic, layout, DRC or plots.
 
 Part numbers as assembled are in the LCSC fields on the schematic symbols.
 
@@ -50,16 +47,15 @@ Part numbers as assembled are in the LCSC fields on the schematic symbols.
 
 ### Qwiic (J9)
 
-JST SH 1.0 mm, 4 pin, horizontal. `GND`, `3V3`, `SDA` (`PH7`, I2C3), `SCL` (`PH3`, I2C3).
-
-- Shares the I2C3 bus with the mikroBUS socket, 10 kOhm pull-ups fitted. Qwiic modules
-  usually also fit pull-ups, so a long chain may over-pull the bus. Prefer a module
-  without pull-ups or drop bus speed to 100 kHz to compensate.
+JST SH 1.0 mm, 4 pin, horizontal: `GND`, `3V3`, `SDA` (`PH7`) and `SCL` (`PH3`),
+both on I2C3 and shared with the mikroBUS socket, with 10 kOhm pull-ups fitted.
+Qwiic modules usually also provide pull-ups, so a long chain may over-pull the bus.
+Prefer a module without pull-ups or drop bus speed to 100 kHz.
 
 ### mikroBUS / Click (J8, DNP)
 
-- Two 1x8 sockets at 22.86 mm row spacing, matching the mikroBUS spec. All
-twelve IO signals are SOM GPIO, selected to best suit the functions below:
+Standard mikroBUS pinout on two 1x8 sockets at 22.86 mm row spacing. All 12
+IO signals route to SOM GPIO, chosen for the roles below:
 
 | Pin | mikroBUS | Board net | SOM pad | SOM port | Roles |
 |---:|---|---|---:|---|---|
@@ -80,10 +76,9 @@ twelve IO signals are SOM GPIO, selected to best suit the functions below:
 | 15 | `5V` | `SYS_5V` | - | - | board 5 V rail |
 | 16 | `GND` | `GND` | - | - | |
 
-- `AN` and `PWM` are `AIO1` (pad 48, PA1) and `AIO0` (pad 47, PA2) with a 330 Ohm series resistor.
-`RX`/`TX` are routed so a CAN transceiver Click lands on FDCAN2 directly or used as a complete UART5 pair.
-
-- Remaining GPIO use a 33 Ohm series resistor and share two 0.3 pF multi-channel ESD arrays.
+`AN` and `PWM` use a 330 Ohm series resistor, remaining GPIO 33 Ohm
+for protection. All pins share two 0.3 pF ESD arrays. `RX`/`TX`
+for UART5 also support FDCAN2 directly, so a CAN transceiver Click should work.
 
 ### Console (J2) and SWD (J3)
 
@@ -93,59 +88,59 @@ twelve IO signals are SOM GPIO, selected to best suit the functions below:
 | 2 | `UART4_TX` |
 | 3 | `UART4_RX` |
 
-- J3 is a standard ARM Cortex Debug 10-pin, 1.27 mm, pin 1 VTref on `VDD_3V3`,
+J3 is a standard ARM Cortex Debug 10-pin, 1.27 mm: pin 1 `VTref` on `VDD_3V3`,
 SWDIO/SWCLK plus reset.
 
 ### USB
 
-- J1, USB-C: device port, `CC1`/`CC2` each through 5.1 kOhm to GND. In mode 1 it
-  reaches the SOM (gadget); in mode 2 it lands on hub port 1.
-- J5-J7, USB-A: hub ports 2-4, shells to GND. The three ports share one VBUS current
-  limit of about 250 mA (200-300 mA over tolerance), set by a TPS25200 with a 390 kOhm
-  ILIM resistor.
+- J1 (USB-C): device port; reaches the SOM in mode 1, hub port 1 in mode 2.
+- J5-J7 (USB-A): hub ports 2-4, shells to GND, sharing a VBUS current limit of
+  about 250 mA (200-300 mA over tolerance) set by a TPS25200.
 
 ### microSD (J4)
 
-- SDMMC1 via EMIF06-MSD02N16 (45 ohm series, 20 pF, ESD, card-detect). Card detect
-uses SOM pad 110 (`PD12`). Normally empty, meant for development use and as a possible
-alternate boot target using a cut trace on the bottom of the board.
+SDMMC1 via an EMIF06-MSD02N16, which provides series resistance, filter
+capacitance, ESD and card detect on SOM pad 110 (`PD12`). Normally empty, meant
+for development or as an alternate boot target using a cut trace on the bottom
+of the board.
 
 ### Power budget
 
-- A TPS25200 input eFuse with a 150 kOhm ILIM resistor limits the whole board to 647 mA nominal
-(590-710 mA over tolerance). The USB-A ports are further limited to use up to 250 mA, leaving
-about 400 mA for the SOM (measued 128 mA average, ~160 mA peak), the hub IC (30-80 mA) and
-everything else. A PC USB 2.0 port only guarantees 500 mA. Downstream devices should be
-self-powered for best reliability.
+USB-A's ~250 mA limit leaves about 400 mA for the SOM (measured 128 mA average,
+~160 mA peak), the hub (30-80 mA) and everything else, inside the 647 mA nominal
+input eFuse limit (590-710 mA over tolerance, 150 kOhm ILIM). A PC USB 2.0 port
+generally only guarantees 500 mA, so downstream devices should be self-powered
+for best reliability.
 
-- Power for GPIO peripherals comes from the SOM's 3V3 output, shared with the rest of the board.
-There is no limiting efuse on these, pins. To avoid brownout, keep the total under 100 mA.
+GPIO peripherals are powered from the SOM's 3V3 output, shared with the rest of
+the board and with no limiting eFuse on these pins. Keep the total under 100 mA
+to avoid brownout.
 
 ## Software
 
-The board's OS (TF-A, OP-TEE, U-Boot, the Linux kernel and the rootfs) is built with
-the Deadband Labs Buildroot SDK: <https://github.com/deadbandlabs/dbl-buildroot>.
-This builds a complete image from upstream sources that boots the MYIR SOM, with
-the console, USB gadget and host, SPI NAND and SD card enabled in the device tree.
+The board's OS (TF-A, OP-TEE, U-Boot, Linux kernel and rootfs) is built
+with the Deadband Labs Buildroot SDK:
+<https://github.com/deadbandlabs/dbl-buildroot>. It builds a complete image from
+upstream sources that boots the MYIR SOM, with console, USB gadget and host,
+SPI NAND and SD card enabled in the device tree.
 
-dbl-buildroot is designed to be extended by a parent project. A parent device tree
-include is applied on top of the base tree, and a `BR2_EXTERNAL` tree adds packages,
-overlays and defconfigs, see its
+dbl-buildroot is designed to be extended by a parent project: a device tree
+include applied on top of the base tree, plus a `BR2_EXTERNAL` tree adding
+packages, overlays and defconfigs, see its
 [Parent Integration](https://github.com/deadbandlabs/dbl-buildroot/wiki/7.-Parent-Integration)
-page. Carrier board peripherals (USB hub control, Qwiic and I2C, mikroBUS and so on) are
-implemented using this integration. The Syncro userspace and its board layer are pending
-final publication and will be linked here when complete.
+page. Carrier board peripherals (USB hub control, Qwiic and I2C, mikroBUS and so
+on) are implemented this way. The Syncro userspace and its board layer are
+pending final publication and will be linked here when complete.
 
 ## Licence
 
 Design files: CERN-OHL-W-2.0, see `LICENSE` and `NOTICE`.
 
-The interfaces a third party uses to reach this board (the USB ports, Qwiic,
-mikroBUS/Click, the console serial header and SWD) are documented above. A design
-that uses the board only through them is External Material under section 1.8 of
-the licence and does not need to be released. Modified design files must be
-published under the same licence.
+A design using the board only through its external interfaces (USB ports, Qwiic,
+mikroBUS/Click, console serial header and SWD) is External Material under
+section 1.8 of the licence and does not need to be released. Modified design
+files must be published under the same licence.
 
 `syncro-pcb-lib/` is generated from the project's parts library (see
-`syncro-pcb-lib/GENERATED.md`). Part of it derives from the KiCad libraries,
+`syncro-pcb-lib/GENERATED.md`), and part of it derives from stock KiCad libraries,
 which stay CC-BY-SA-4.0 with the KiCad libraries exception. See `NOTICE`.
