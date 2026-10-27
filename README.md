@@ -16,7 +16,7 @@ The board has three USB-A downstream ports, with a runtime-switched two-position
 
 The board also serves as an STM32MP13 development board, with Qwiic and
 mikroBUS (unpopulated) as GPIO expansion, SWD, UART debug header, user buttons
-and an RGB status LED.
+and RGB status and accent LEDs.
 
 ## Hardware
 
@@ -29,7 +29,7 @@ and an RGB status LED.
 - microSD slot (SDMMC1), console UART on a 1x3 0.1" header, SWD on a
   1.27 mm 10-pin
 - Qwiic (J9), mikroBUS/Click footprint (J8), reset/DFU/case-user buttons,
-  RGB status LED on TIM1
+  RGB status LED on TIM1, three accent RGB LEDs on TIM8 (D16-D18)
 - 4 layer, 1.6 mm, ENIG, JLC04161H-3313; single-sided SMT assembly
 
 ## Opening the design

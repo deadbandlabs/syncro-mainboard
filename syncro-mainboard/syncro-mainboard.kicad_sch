@@ -13,6 +13,16 @@
 	(lib_symbols)
 	(wire
 		(pts
+			(xy 154.94 143.51) (xy 193.04 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "01b35f1d-6040-4a85-bdfb-61d2abc00000")
+	)
+	(wire
+		(pts
 			(xy 154.94 118.11) (xy 193.04 118.11)
 		)
 		(stroke
@@ -193,6 +203,16 @@
 	)
 	(wire
 		(pts
+			(xy 154.94 140.97) (xy 193.04 140.97)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6e706817-dcd4-46f6-9ad2-63ab5d8fdabf")
+	)
+	(wire
+		(pts
 			(xy 154.94 128.27) (xy 193.04 128.27)
 		)
 		(stroke
@@ -343,6 +363,16 @@
 	)
 	(wire
 		(pts
+			(xy 154.94 138.43) (xy 193.04 138.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d41acc8a-562f-46ed-ae3d-b8d427bac031")
+	)
+	(wire
+		(pts
 			(xy 76.2 88.9) (xy 116.84 88.9)
 		)
 		(stroke
@@ -383,7 +413,7 @@
 	)
 	(sheet
 		(at 116.84 62.23)
-		(size 38.1 76.2)
+		(size 38.1 86.36)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -409,7 +439,7 @@
 			)
 		)
 		(property "Sheetfile" "som.kicad_sch"
-			(at 116.84 139.0146 0)
+			(at 116.84 149.1746 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -789,6 +819,36 @@
 				(justify left)
 			)
 		)
+		(pin "LED2_B" output
+			(at 154.94 143.51 0)
+			(uuid "946e24e4-c76e-4160-85ff-97f914dc095e")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "LED2_G" output
+			(at 154.94 140.97 0)
+			(uuid "70ce1e1e-6387-4c33-b195-4e80eb2f0942")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "LED2_R" output
+			(at 154.94 138.43 0)
+			(uuid "069f1e11-b573-45ad-8c8a-b4c4c48c1c4a")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
 		(instances
 			(project "syncro-mainboard"
 				(path "/9c903542-dac8-433f-865d-6cdc2db41c1f"
@@ -965,7 +1025,7 @@
 	)
 	(sheet
 		(at 193.04 100.33)
-		(size 25.4 38.1)
+		(size 25.4 48.26)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -991,7 +1051,7 @@
 			)
 		)
 		(property "Sheetfile" "io.kicad_sch"
-			(at 193.04 139.0146 0)
+			(at 193.04 149.1746 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1104,6 +1164,36 @@
 		(pin "LED_B" input
 			(at 193.04 133.35 180)
 			(uuid "43681756-bc92-4c60-95c3-ff0e7b509549")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "LED2_B" output
+			(at 193.04 143.51 180)
+			(uuid "9be5459e-4f7f-40d3-a196-c2422cb5e84f")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "LED2_G" output
+			(at 193.04 140.97 180)
+			(uuid "641f6f50-78e8-49e0-83d9-0c6c25afed48")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "LED2_R" output
+			(at 193.04 138.43 180)
+			(uuid "6c290373-3ce4-43f1-a7f6-165f3d23c6b5")
 			(effects
 				(font
 					(size 1.27 1.27)
